@@ -1,45 +1,57 @@
 package main
 
 import (
+	"encoding/json"
+	"os"
+
 	"github.com/bencromwell/cabinbags/cabinbag"
 	"github.com/fatih/color"
 )
 
-func AvailableBags() []cabinbag.CabinBag {
-	return []cabinbag.CabinBag{
-		{Name: "Small", X: 40, Y: 25, Z: 20},
-		{Name: "Large", X: 50, Y: 33, Z: 20},
-		{Name: "Test", X: 60, Y: 40, Z: 20},
+type (
+	Airlines struct {
+		Airlines []cabinbag.Airline `json:"airlines"`
 	}
-}
 
-func Airlines() []cabinbag.Airline {
-	return []cabinbag.Airline{
-		{
-			Name:          "Ryanair",
-			SmallBagLimit: &cabinbag.CabinBag{Name: "Small", X: 40, Y: 25, Z: 20},
-			LargeBagLimit: &cabinbag.CabinBag{Name: "Large", X: 55, Y: 40, Z: 20},
-		},
-		{
-			Name:          "EasyJet",
-			SmallBagLimit: &cabinbag.CabinBag{Name: "Small", X: 45, Y: 36, Z: 20},
-			LargeBagLimit: &cabinbag.CabinBag{Name: "Large", X: 56, Y: 45, Z: 25},
-		},
-		{
-			Name:          "Jet2",
-			LargeBagLimit: &cabinbag.CabinBag{Name: "Large", X: 56, Y: 45, Z: 25},
-		},
+	OwnedBags struct {
+		Bags []cabinbag.CabinBag `json:"owned_bags"`
 	}
+)
+
+func loadFile(filename string, v interface{}) error {
+	data, err := os.ReadFile(filename)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(data, v)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func main() {
-	airlines := Airlines()
-	ownedBags := AvailableBags()
+	var airlines Airlines
+	var ownedBags OwnedBags
 
-	for _, airline := range airlines {
+	err := loadFile("airlines.json", &airlines)
+	if err != nil {
+		color.Red("Failed to load airlines.json: %s", err)
+		os.Exit(1)
+	}
+
+	err = loadFile("bags.json", &ownedBags)
+	if err != nil {
+		color.Red("Failed to load bags.json: %s", err)
+		os.Exit(1)
+	}
+
+	for _, airline := range airlines.Airlines {
 		color.Cyan(airline.Name)
 
-		for _, bag := range ownedBags {
+		for _, bag := range ownedBags.Bags {
 			cabinbag.CheckBag(airline, bag)
 		}
 	}
