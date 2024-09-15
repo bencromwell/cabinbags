@@ -3,10 +3,10 @@ package cabinbag
 import "github.com/fatih/color"
 
 type CabinBag struct {
-	Name string
-	X    int
-	Y    int
-	Z    int
+	Name string `json:"name"`
+	X    int    `json:"x"`
+	Y    int    `json:"y"`
+	Z    int    `json:"z"`
 }
 
 func (c CabinBag) FitsIn(limit *CabinBag) bool {

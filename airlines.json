@@ -1,0 +1,43 @@
+{
+    "airlines": [
+        {
+            "name": "Ryanair",
+            "small_bag_limit": {
+                "name": "Small",
+                "x": 40,
+                "y": 25,
+                "z": 20
+            },
+            "large_bag_limit": {
+                "name": "Large",
+                "x": 55,
+                "y": 40,
+                "z": 20
+            }
+        },
+        {
+            "name": "EasyJet",
+            "small_bag_limit": {
+                "name": "Small",
+                "x": 45,
+                "y": 36,
+                "z": 20
+            },
+            "large_bag_limit": {
+                "name": "Large",
+                "x": 56,
+                "y": 45,
+                "z": 25
+            }
+        },
+        {
+            "name": "Jet2",
+            "large_bag_limit": {
+                "name": "Large",
+                "x": 56,
+                "y": 45,
+                "z": 25
+            }
+        }
+    ]
+}
