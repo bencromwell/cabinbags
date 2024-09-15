@@ -38,6 +38,21 @@
                 "y": 45,
                 "z": 25
             }
+        },
+        {
+            "name": "Lufthansa",
+            "small_bag_limit": {
+                "name": "Personal Item",
+                "x": 40,
+                "y": 30,
+                "z": 20
+            },
+            "large_bag_limit": {
+                "name": "Carry-on",
+                "x": 55,
+                "y": 40,
+                "z": 23
+            }
         }
     ]
 }
