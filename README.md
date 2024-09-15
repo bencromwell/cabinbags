@@ -7,24 +7,21 @@ When adding new airlines, ensure you go from largest to smallest dimension.
 ```shell
 ❯ ./dist/cabinbags 
 Ryanair
-  Small fits within Small Ryanair limit
-  Small fits within Large Ryanair limit
-  Large does not fit within Small Ryanair limit
-  Large fits within Large Ryanair limit
-  Test does not fit within Small Ryanair limit
-  Test does not fit within Large Ryanair limit
-  Test does not fit within Ryanair limits
+  Small (40x25x20) fits within Small (40x25x20) Ryanair limit
+  Small (40x25x20) fits within Large (55x40x20) Ryanair limit
+  Large (50x33x20) does not fit within Small (40x25x20) Ryanair limit
+  Large (50x33x20) fits within Large (55x40x20) Ryanair limit
+  Test (55x40x20) does not fit within Small (40x25x20) Ryanair limit
+  Test (55x40x20) fits within Large (55x40x20) Ryanair limit
 EasyJet
-  Small fits within Small EasyJet limit
-  Small fits within Large EasyJet limit
-  Large does not fit within Small EasyJet limit
-  Large fits within Large EasyJet limit
-  Test does not fit within Small EasyJet limit
-  Test does not fit within Large EasyJet limit
-  Test does not fit within EasyJet limits
+  Small (40x25x20) fits within Small (45x36x20) EasyJet limit
+  Small (40x25x20) fits within Large (56x45x25) EasyJet limit
+  Large (50x33x20) does not fit within Small (45x36x20) EasyJet limit
+  Large (50x33x20) fits within Large (56x45x25) EasyJet limit
+  Test (55x40x20) does not fit within Small (45x36x20) EasyJet limit
+  Test (55x40x20) fits within Large (56x45x25) EasyJet limit
 Jet2
-  Small fits within Large Jet2 limit
-  Large fits within Large Jet2 limit
-  Test does not fit within Large Jet2 limit
-  Test does not fit within Jet2 limits
+  Small (40x25x20) fits within Large (56x45x25) Jet2 limit
+  Large (50x33x20) fits within Large (56x45x25) Jet2 limit
+  Test (55x40x20) fits within Large (56x45x25) Jet2 limit
 ```
