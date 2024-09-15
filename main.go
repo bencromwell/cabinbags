@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 
 	"github.com/bencromwell/cabinbags/cabinbag"
@@ -35,6 +36,7 @@ func loadFile(filename string, v interface{}) error {
 func main() {
 	var airlines Airlines
 	var ownedBags OwnedBags
+	var results []cabinbag.BagCheckResult = make([]cabinbag.BagCheckResult, 0)
 
 	err := loadFile("airlines.json", &airlines)
 	if err != nil {
@@ -48,11 +50,40 @@ func main() {
 		os.Exit(1)
 	}
 
-	for _, airline := range airlines.Airlines {
-		color.Cyan(airline.Name)
+	for _, bag := range ownedBags.Bags {
+		bagCheckResult := cabinbag.BagCheckResult{}
 
-		for _, bag := range ownedBags.Bags {
-			cabinbag.CheckBag(airline, bag)
+		for _, airline := range airlines.Airlines {
+			cabinbag.CheckBag(airline, bag, &bagCheckResult)
 		}
+
+		bagResult := cabinbag.BagCheckResult{
+			Bag:               &bag,
+			BagAirlineResults: bagCheckResult.BagAirlineResults,
+		}
+
+		results = append(results, bagResult)
+	}
+
+	for _, result := range results {
+		color.Yellow(result.Bag.Ref())
+
+		for _, bagAirlineResult := range result.BagAirlineResults {
+			color.Cyan("  %s", bagAirlineResult.Airline.Name)
+
+			for _, limit := range bagAirlineResult.LimitResults {
+				if limit.Limit == nil {
+					continue
+				}
+
+				if limit.Fits {
+					color.Green("    - %s: fits", limit.Limit.Ref())
+				} else {
+					color.Red("    - %s: does not fit", limit.Limit.Ref())
+				}
+			}
+		}
+
+		fmt.Println()
 	}
 }
